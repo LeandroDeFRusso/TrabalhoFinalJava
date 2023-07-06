@@ -1,0 +1,154 @@
+package matriz;
+
+import java.util.Scanner;
+public class GuardaRoupas {
+    public static void inserirVestuario(String [][] matriz, int linhas, int colunas) {
+        Scanner scanner = new Scanner(System.in);
+        int linha;
+
+        mostrarRoupas(matriz, linhas, colunas);
+        do {
+            System.out.println("Insira o número da linha que deseja inserir uma peça de 1 à " + linhas);
+            linha = scanner.nextInt();
+        } while(linha < 1 || linha > linhas);
+
+        System.out.println("Insira o nome da marca da peça de roupa que deseja inserir: ");
+        matriz[linha-1][0] = scanner.next();
+        System.out.println("Insira a categoria da peça que deseja inserir: (Calça, Camisa, Meias, Tênis, Vestido e Boné): ");
+        matriz[linha-1][1] = scanner.next();
+        System.out.println("Insira o valor da peça que está inserindo:");
+        matriz[linha-1][2] = scanner.next();
+        System.out.println("Insira o Estado da peça que deseja inserir: ( Ruim, Bom e Média");
+        matriz[linha-1][3] = scanner.next();
+        System.out.println("Peça adicionada com sucesso.");
+        System.out.println(" ");
+    }
+    public static void mostrarRoupas(String [][] matriz, int linhas, int colunas) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Marca | Categoria | Valor | Estado");
+        for(int i = 0; i < linhas; i++) {
+            System.out.print((i+1) + " - ");
+            for(int j = 0; j < colunas; j++) {
+                System.out.print(matriz[i][j] + " | ");
+
+            }
+            System.out.println();
+        }
+    }
+    public static void valorGuardaRoupa(String [][] matriz, int linhas) {
+        Scanner scanner = new Scanner(System.in);
+        Float valorFinal = 0.0f;
+        for(int i = 0; i < linhas; i++) {
+            if(matriz[i][0] != null) {
+                valorFinal += Float.parseFloat(matriz[i][2]);
+            }
+        }
+        System.out.println("O valor total que se encontra dos vestuários dentro do guarda roupa é de: " + valorFinal + " R$");
+        System.out.println(" ");
+    }
+    public static void removerPeca(String[][] matriz, int linhas, int linha) {
+        Scanner scanner = new Scanner(System.in);
+        boolean encontrado = false;
+        while (linha < 1 || linha > linhas) {
+            System.out.println("Linha inválida. Insira uma linha válida para remover a peça:");
+            linha = scanner.nextInt();
+        }
+        if (matriz[linha - 1][0] != null) {
+            matriz[linha - 1][0] = null;
+            matriz[linha - 1][1] = null;
+            matriz[linha - 1][2] = null;
+            matriz[linha - 1][3] = null;
+            encontrado = true;
+        }
+        if (encontrado) {
+            System.out.println("Peça removida do guarda roupa.");
+            mostrarRoupas(matriz, linhas, 4);
+        } else {
+            System.out.println("Peça não encontrada no guarda roupa.");
+            System.out.println();
+        }
+    }
+    public static void filtrarPorCategoria(String[][] matriz, int linhas) {
+        String categoria;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Insira a categoria que deseja para filtrar as roupas:");
+        categoria = scanner.next();
+        System.out.println("Peças na categoria " + categoria + ":");
+        for (int i = 0; i < linhas; i++) {
+            if (matriz[i][1] != null && matriz[i][1].equalsIgnoreCase(categoria)){
+                System.out.println(matriz[i][0]);
+            }
+        }
+    }
+    public static void atualizarRoupa(String[][] matriz, int linhas) {
+        String valorAtualizado, estadoAtualizado, categoriaAtualizada;
+        Scanner scanner = new Scanner(System.in);
+
+        mostrarRoupas(matriz, linhas, 4);
+        System.out.println("Selecione o número da linha da roupa que deseja atualizar:");
+        int roupaSelecionada = scanner.nextInt();
+
+        while (roupaSelecionada < 1 || roupaSelecionada > linhas) {
+            System.out.println("Roupa inválida. Insira uma roupa válida pelo seu número:");
+            roupaSelecionada = scanner.nextInt();
+        }
+        System.out.println("Insira a nova categoria da roupa que deseja adicionar:");
+        categoriaAtualizada = scanner.next();
+        System.out.println("Insira o novo valor da roupa que deseja adicionar:");
+        valorAtualizado = scanner.next();
+        System.out.println("Insira o novo estado da roupa que deseja adicionar:");
+        estadoAtualizado = scanner.next();
+
+        matriz[roupaSelecionada - 1][1] = categoriaAtualizada;
+        matriz[roupaSelecionada - 1][2] = valorAtualizado;
+        matriz[roupaSelecionada - 1][3] = estadoAtualizado;
+
+        System.out.println("Roupa atualizada com sucesso.");
+        System.out.println(" ");
+    }
+
+    public static void main(String[] args) {
+        String [][] guardaroupa;
+        int pecas, opcao;
+        int colunas = 4;
+        int linhaRemover;
+        Scanner scanner = new Scanner(System.in);
+        String nomePeca;
+
+        System.out.println("Insira a quantidade de peças que serão adicionadas no seu guarda roupa:");
+        pecas = scanner.nextInt();
+        guardaroupa = new String[pecas][colunas];
+
+        do {
+            System.out.println("Escolha uma opção, digitando uma opção válida de 0 á 6: \n 1 - Mostrar guarda roupa. \n 2 - Inserir peças no guarda roupa. \n 3 - Calcular valor total das peças dentro do guarda roupa. \n 4 - Remover peça do guarda roupa. \n 5 - Filtrar por categoria de roupas. \n 6 - Atualizar dados das roupas do guarda roupa.  \n 0 - Sair.");
+            opcao = scanner.nextInt();
+            switch(opcao) {
+                case 0:
+                    break;
+                case 1:
+                    mostrarRoupas(guardaroupa, pecas, colunas);
+                    break;
+                case 2:
+                    inserirVestuario(guardaroupa, pecas, colunas);
+                    break;
+                case 3:
+                    valorGuardaRoupa(guardaroupa, pecas);
+                    break;
+                case 4:
+                    System.out.println("Insira o número da linha da peça que deseja remover:");
+                    linhaRemover = scanner.nextInt();
+                    removerPeca(guardaroupa, pecas, linhaRemover);
+                    break;
+                case 5:
+                    filtrarPorCategoria(guardaroupa, pecas);
+                    break;
+                case 6:
+                    atualizarRoupa(guardaroupa, pecas);
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
+            }
+        } while (opcao != 0);
+    }
+}
+
