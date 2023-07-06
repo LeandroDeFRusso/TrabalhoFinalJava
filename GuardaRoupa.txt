@@ -13,6 +13,7 @@ public class GuardaRoupas {
         } while(linha < 1 || linha > linhas);
 
         System.out.println("Insira o nome da marca da peça de roupa que deseja inserir: ");
+        System.out.println("Em Caso de palavras compostas utilize o símbolo Underline (_)");
         matriz[linha-1][0] = scanner.next();
         System.out.println("Insira a categoria da peça que deseja inserir: (Calça, Camisa, Meias, Tênis, Vestido e Boné): ");
         matriz[linha-1][1] = scanner.next();
