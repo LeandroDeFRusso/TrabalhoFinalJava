@@ -18,7 +18,7 @@ public class GuardaRoupas {
         matriz[linha-1][1] = scanner.next();
         System.out.println("Insira o valor da peça que está inserindo:");
         matriz[linha-1][2] = scanner.next();
-        System.out.println("Insira o Estado da peça que deseja inserir: ( Ruim, Bom e Média)");
+        System.out.println("Insira o Estado da peça que deseja inserir: (Ruim, Bom e Média)");
         matriz[linha-1][3] = scanner.next();
         System.out.println("Peça adicionada com sucesso.");
         System.out.println(" ");
